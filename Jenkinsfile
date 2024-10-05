@@ -1,9 +1,13 @@
 pipeline {
-    agent { docker { image 'maven:3.3.3' } }
+    agent any
     stages {
-        stage('build') {
+        stage('Build') {
             steps {
-                bat 'mvn --version'
+                script {
+                    docker.image('maven:3.3.3').inside('-v /c/ProgramData/Jenkins/.jenkins/workspace/Angular_Udemy:/workspace') {
+                        bat 'echo "Running maven build..."'
+                    }
+                }
             }
         }
     }
