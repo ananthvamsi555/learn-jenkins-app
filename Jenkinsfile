@@ -4,9 +4,9 @@ pipeline {
         stage('Build') {
             steps {
                 script {
-                    docker.image('maven:3.3.3').inside('-v /c/ProgramData/Jenkins/.jenkins/workspace/Angular_Udemy:/workspace') {
-                        sh 'echo "Running maven build..."'
-                        sh 'mvn clean install'
+                    docker.image('maven:3.3.3-windows').inside('-v C:/ProgramData/Jenkins/.jenkins/workspace/Angular_Udemy:/workspace') {
+                        bat 'echo "Running maven build..."'
+                        bat 'mvn clean install'
                     }
                 }
             }
