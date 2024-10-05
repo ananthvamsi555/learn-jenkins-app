@@ -11,7 +11,7 @@ pipeline {
                 }
             }
             steps {
-                sh '''
+                bat '''
                     ls -la
                     node --version
                     npm --version
@@ -33,7 +33,7 @@ pipeline {
                     }
 
                     steps {
-                        sh '''
+                        bat '''
                             #test -f build/index.html
                             npm test
                         '''
@@ -54,7 +54,7 @@ pipeline {
                     }
 
                     steps {
-                        sh '''
+                        bat '''
                             npm install serve
                             node_modules/.bin/serve -s build &
                             sleep 10
@@ -79,7 +79,7 @@ pipeline {
                 }
             }
             steps {
-                sh '''
+                bat '''
                     npm install netlify-cli
                     node_modules/.bin/netlify --version
                 '''
