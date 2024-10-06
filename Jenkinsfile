@@ -1,22 +1,13 @@
 pipeline {
     agent any
-
     stages {
-        stage('w/o docker') {
+        stage('Build') {
             steps {
-                bat 'echo "Without docker"'
-            }
-        }
-
-        stage('w/ docker') {
-            agent {
-                docker {
-                    image 'node:18-alpine'
+                script {
+                    docker.image('node:18-alpine').inside("-v ${WORKSPACE}:/workspace") {
+                        bat 'npm install'
+                    }
                 }
-            }
-            steps {
-                bat 'echo "With docker"'
-                bat 'npm --version'
             }
         }
     }
