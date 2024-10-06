@@ -1,15 +1,22 @@
 pipeline {
     agent any
+
     stages {
-        stage('Build') {
+        stage('w/o docker') {
             steps {
-                script {
-                    docker.image('mcr.microsoft.com/windows/servercore:ltsc2019').inside('-v C:/ProgramData/Jenkins/.jenkins/workspace/Angular_Udemy:/workspace') {
-                        // Now using bat for Windows-based container
-                        bat 'echo "Running node build..."'
-                        bat 'npm run build'
-                    }
+                bat 'echo "Without docker"'
+            }
+        }
+
+        stage('w/ docker') {
+            agent {
+                docker {
+                    image 'node:18-alpine'
                 }
+            }
+            steps {
+                bat 'echo "With docker"'
+                bat 'npm --version'
             }
         }
     }
